@@ -12,9 +12,18 @@
   </header>
 
   <main id="app">
-    <!-- Här kommer formulär och spellistor att renderas -->
+    <form id="playlist-form">
+      <input name="name"    type="text" placeholder="Spellistans namn" required />
+      <input name="genre"   type="text" placeholder="Genre"          required />
+      <input name="artist"  type="text" placeholder="Artist"         required />
+      <!-- För låtar kan du använda en textarea eller flera inputs -->
+      <textarea name="tracks" placeholder="Lägg in låttitel per rad"></textarea>
+      <button type="submit">Skapa spellista</button>
+    </form>
+
+    <div id="playlist-list"></div>
   </main>
 
   <script type="module" src="app.js"></script>
-</body> 
+</body>
 </html>
