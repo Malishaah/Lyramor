@@ -1,0 +1,87 @@
+### Get all posts
+GET http://localhost:5006/api/posts
+Accept: application/json
+
+
+### Get a post by ID (Replace :id with a real post ID)
+GET http://localhost:5006/api/posts/68112fb624d01f95b4492eed
+Accept: application/json
+
+
+### Create a new post
+POST http://localhost:5006/api/posts
+Content-Type: application/json
+
+{
+  "title": "My first post",
+  "content": "This is the content of my first post",
+  "author": "sumaya"
+}
+
+
+### Update a post by ID (Replace :id)
+PUT http://localhost:5006/api/posts/68112fb624d01f95b4492eed
+Content-Type: application/json
+
+{
+  "title": "Updated title",
+  "content": "Updated content"
+}
+
+
+### Delete a post by ID (Replace :id)
+DELETE http://localhost:5006/api/posts/68112fb624d01f95b4492eed
+Accept: application/json
+
+
+
+### Get all users
+GET http://localhost:5006/api/users
+Accept: application/json
+### Get a user by ID (Replace :id with a real user ID)
+GET http://localhost:5006/api/users/68112fb624d01f95b4492eed
+Accept: application/json
+### Update a user by ID (Replace :id)
+PUT http://localhost:5006/api/users/68112fb624d01f95b4492eed
+Content-Type: application/json
+
+{
+  "username": "luna",
+  "password": "newpassword123",
+  "isAdmin": false
+}
+### Delete a user by ID (Replace :id)
+DELETE http://localhost:5006/api/users/68112fb624d01f95b4492eed
+Accept: application/json
+
+
+
+
+
+
+### Sign up a user
+POST  http://localhost:5006/api/signup
+Content-Type: application/json
+{
+  "username": "uniqueUsername",
+  "password": "password123",
+  "isAdmin": false
+}
+
+
+### Login a user
+POST http://localhost:5006/api/users/login
+Content-Type: application/json
+
+{
+  "username": "mimsy",
+  "password": "password123"
+}
+
+### Logout a user
+POST http://localhost:5006/api/users/logout
+Content-Type: application/json
+
+{
+  "username": "hakimi"
+}
