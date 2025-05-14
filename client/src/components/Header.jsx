@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { getSession } from '../api/userClient';
-import logo from '../assets/react.svg';
+import logo from '../assets/lyramor.svg';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -38,13 +38,13 @@ export default function Header() {
   ];
 
   return (
-    <header className='sticky top-0 z-50 bg-[#9767FF] dark:bg-gray-800 text-white'>
+    <header className='sticky top-0 z-50 bg-[#4A2C2C] dark:bg-gray-800 text-white'>
       <div className='max-w-7xl mx-auto flex items-center justify-between px-4 py-1'>
         <div className='flex items-center'>
           <img
             src={logo}
-            alt='Mimsy Logo'
-            className='h-20 sm:h-20 md:h-24 lg:h-28 w-auto'
+            alt='Lyramor Logo'
+            className='h-12 sm:h-12 md:h-14 lg:h-18 w-auto'
           />
         </div>
 
@@ -59,8 +59,8 @@ export default function Header() {
                 end
                 className={({ isActive }) =>
                   `font-bold ${
-                    isActive ? 'text-[#FFB8C9]' : 'text-white'
-                  } hover:text-[#FFE3EA] transform transition-transform duration-150 hover:scale-110`
+                    isActive ? 'text-[#FEFEA4]' : 'text-white'
+                  } hover:text-[#FFDC76] transform transition-transform duration-150 hover:scale-110`
                 }>
                 {item.label}
               </NavLink>
@@ -71,7 +71,7 @@ export default function Header() {
                 handleLogout();
               }
             }}
-            className='font-bold text-white hover:text-[#FFE3EA] transform transition-transform duration-150 hover:scale-110'>
+            className='font-bold text-white hover:text-[#FFDC76] transform transition-transform duration-150 hover:scale-110'>
             Logout
           </button>
         </nav>
@@ -85,9 +85,9 @@ export default function Header() {
             <span className='text-2xl leading-none'>&times;</span>
           ) : (
             <>
-              <span className='block w-full h-0.5 bg-white mb-2'></span>
-              <span className='block w-full h-0.5 bg-white mb-2'></span>
-              <span className='block w-full h-0.5 bg-white'></span>
+              <span className='block w-full h-0.5 bg-[#FEFEA4] mb-2'></span>
+              <span className='block w-full h-0.5 bg-[#FEFEA4] mb-2'></span>
+              <span className='block w-full h-0.5 bg-[#FEFEA4]'></span>
             </>
           )}
         </button>
@@ -95,7 +95,7 @@ export default function Header() {
 
       {/* Mobile menu panel */}
       {mobileOpen && (
-        <div className='md:hidden bg-[#9767FF]'>
+        <div className='md:hidden bg-[#4A2C2C]'>
           <nav className='flex flex-col space-y-2 px-4 py-1'>
             {menuItems
               .filter((item) => item.show)
@@ -106,8 +106,8 @@ export default function Header() {
                   end
                   className={({ isActive }) =>
                     `block font-bold ${
-                      isActive ? 'text-[#FFB8C9]' : 'text-white'
-                    } py-2 hover:text-[#FFE3EA]`
+                      isActive ? 'text-[#FEFEA4]' : 'text-white'
+                    } py-2 hover:text-[#FFDC76]`
                   }
                   onClick={() => setMobileOpen(false)}>
                   {item.label}
@@ -119,7 +119,7 @@ export default function Header() {
                   handleLogout();
                 }
               }}
-              className='font-bold text-white hover:text-[#FFE3EA] transform transition-transform duration-150 hover:scale-110'>
+              className='font-bold text-white hover:text-[#FFDC76] transform transition-transform duration-150 hover:scale-110'>
               Logout
             </button>
           </nav>
