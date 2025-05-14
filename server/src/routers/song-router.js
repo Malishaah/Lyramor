@@ -1,5 +1,5 @@
 const express = require('express');
-const { Song, Artist } = require('../models/playlist'); // eller '../models/song' om du har det separat
+const { Song, Artist, Genre } = require('../models/playlist'); // eller '../models/song' om du har det separat
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -22,7 +22,7 @@ const upload = multer({ storage });
 // POST /api/songs/upload
 router.post('/upload', upload.single('track'), async (req, res) => {
   try {
-    const { title, artistName } = req.body;
+    const { title, artistName, genrename } = req.body;
     const filePath = `${req.protocol}://${req.get('host')}/uploads/${
       req.file.filename
     }`;
@@ -30,13 +30,23 @@ router.post('/upload', upload.single('track'), async (req, res) => {
     // Hitta eller skapa artist
     let artist = await Artist.findOne({ name: artistName });
     if (!artist) {
-      artist = await Artist.create({ name: artistName });
+      try {
+        artist = await Artist.create({ name: artistName });
+      } catch (error) {
+        return res.status(400).json({ error: 'Invalid artist data' });
+      }
+    }
+
+    let genre = await Genre.findOne({ name: genrename });
+    if (!genre) {
+      genre = await Genre.create({ name: genrename });
     }
 
     const song = new Song({
       title,
       artist: artist._id,
       trackUrl: filePath,
+      genre: genre._id,
     });
 
     const saved = await song.save();

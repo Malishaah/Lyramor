@@ -9,11 +9,12 @@ export async function fetchSongs() {
 
 /** Skapa en ny låt */
 // För att skapa en låt korrekt måste du skapa artist separat först
-export async function uploadSong({ title, artistName, file }) {
+export async function uploadSong(formData) {
   const form = new FormData();
-  form.append('title', title);
-  form.append('artistName', artistName);
-  form.append('track', file);
+  form.append('title', formData.get('title'));
+  form.append('artistName', formData.get('artistName'));
+  form.append('track', formData.get('track'));
+  form.append('genrename', formData.get('genrename'));
 
   const res = await fetch('/api/songs/upload', {
     method: 'POST',

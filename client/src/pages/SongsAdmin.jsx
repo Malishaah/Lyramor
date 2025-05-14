@@ -6,9 +6,14 @@ import Header from '../components/Header';
 export default function SongsAdmin() {
   const [songs, setSongs] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [form, setForm] = useState({ title: '', artistName: '', genreId: '' });
+  const [form, setForm] = useState({
+    title: '',
+    artistName: '',
+    genrename: '',
+  });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -20,7 +25,7 @@ export default function SongsAdmin() {
         setSongs(songsData);
         setGenres(genresData);
       } catch (err) {
-        console.error(err);
+        console.error('Failed to load data:', err);
       } finally {
         setLoading(false);
       }
@@ -29,25 +34,40 @@ export default function SongsAdmin() {
   }, []);
 
   const handleChange = (e) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newSong = await uploadSong({
-      title: form.title,
-      artistName: form.artistName,
-      genreId: form.genreId,
-      file,
-    });
-    setSongs([...songs, newSong]);
-    setForm({ title: '', artistName: '', genreId: '' });
-    setFile(null);
+    if (!file) return;
+    setUploading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('title', form.title);
+      formData.append('artistName', form.artistName);
+      formData.append('genrename', form.genrename);
+      formData.append('track', file);
+
+      const newSong = await uploadSong(formData);
+      setSongs((prev) => [...prev, newSong]);
+      setForm({ title: '', artistName: '', genrename: '' });
+      setFile(null);
+    } catch (err) {
+      console.error('Upload failed:', err);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleDelete = async (id) => {
-    await deleteSong(id);
-    setSongs(songs.filter((s) => s._id !== id));
+    try {
+      await deleteSong(id);
+      setSongs((prev) => prev.filter((s) => s._id !== id));
+    } catch (err) {
+      console.error('Delete failed:', err);
+    }
   };
 
   return (
@@ -58,7 +78,7 @@ export default function SongsAdmin() {
 
         <form onSubmit={handleSubmit} className='mb-6 space-y-4'>
           <div>
-            <label className='block'>Title</label>
+            <label className='block mb-1'>Title</label>
             <input
               name='title'
               value={form.title}
@@ -68,7 +88,7 @@ export default function SongsAdmin() {
             />
           </div>
           <div>
-            <label className='block'>Artist Name</label>
+            <label className='block mb-1'>Artist Name</label>
             <input
               name='artistName'
               value={form.artistName}
@@ -78,23 +98,23 @@ export default function SongsAdmin() {
             />
           </div>
           <div>
-            <label className='block'>Genre</label>
+            <label className='block mb-1'>Genre</label>
             <select
-              name='genreId'
-              value={form.genreId}
+              name='genrename'
+              value={form.genrename}
               onChange={handleChange}
               className='w-full border p-2 rounded'
               required>
               <option value=''>Select genre…</option>
               {genres.map((g) => (
-                <option key={g._id} value={g._id}>
+                <option key={g._id} value={g.name}>
                   {g.name}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <label className='block'>Sound File</label>
+            <label className='block mb-1'>Sound File</label>
             <input
               type='file'
               accept='audio/*'
@@ -105,13 +125,14 @@ export default function SongsAdmin() {
           </div>
           <button
             type='submit'
-            className='bg-green-500 text-white px-4 py-2 rounded'>
-            Upload Song
+            className='bg-green-500 text-white px-4 py-2 rounded'
+            disabled={uploading}>
+            {uploading ? 'Uploading…' : 'Upload Song'}
           </button>
         </form>
 
         {loading ? (
-          <p>Loading songs…</p>
+          <p className='dark:text-white'>Loading songs…</p>
         ) : (
           <ul className='space-y-3'>
             {songs.map((s) => (

@@ -9,7 +9,6 @@ const genreSchema = new Schema({
 // Artist
 const artistSchema = new Schema({
   name: { type: String, required: true },
-  genre: { type: Schema.Types.ObjectId, ref: 'Genre', required: true },
 });
 
 // Song
@@ -18,6 +17,7 @@ const songSchema = new Schema({
   artist: { type: Schema.Types.ObjectId, ref: 'Artist', required: true },
   duration: { type: Number },
   trackUrl: { type: String },
+  genre: { type: Schema.Types.ObjectId, ref: 'Genre', required: true },
 });
 
 // Playlist

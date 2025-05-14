@@ -27,13 +27,14 @@ export default function Header() {
   };
 
   const menuItems = [
-    { to: `/${session?.username || ''}`, label: 'Home', show: true },
+    { to: `/${session?.username || ''}`, label: 'Playlists', show: true },
     {
       to: '/admin/users',
       label: 'User Management',
       show: !!session?.isAdmin,
     },
-    { to: '/admin', label: 'Post Management', show: !!session },
+    { to: '/songs', label: 'Songs', show: !!session },
+    { to: '/genres', label: 'Genres', show: !!session },
   ];
 
   return (
