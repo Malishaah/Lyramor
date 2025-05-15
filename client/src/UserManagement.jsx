@@ -62,10 +62,10 @@ export default function UserManagement() {
   if (error) return <div className='p-4 bg-red-200 text-red-800'>{error}</div>;
 
   return (
-    <div className='bg-[#EFE8FF] min-h-screen'>
+    <div className='bg-[#FEF1DC] min-h-screen'>
       <Header />
       <div className='max-w-4xl mx-auto px-4 py-8'>
-        <h1 className='text-2xl font-bold mb-4'>User Management</h1>
+        <h1 className='text-2xl font-bold mb-6 text-center'>User Management</h1>
         <table className='min-w-full bg-white dark:bg-gray-800 rounded shadow'>
           <thead>
             <tr className='text-left'>
@@ -82,12 +82,12 @@ export default function UserManagement() {
                 <td className='px-4 py-2 space-x-2'>
                   <button
                     onClick={() => handleToggleAdmin(user)}
-                    className='px-2 py-1 bg-indigo-200 rounded hover:bg-indigo-300 transform transition-transform duration-150 hover:scale-110 mr-4'>
+                    className='px-2 py-1 bg-[#FFBE1E] rounded hover:bg-[#FFDE8C] transform transition-transform duration-150 hover:scale-110 mr-4'>
                     {user.isAdmin ? 'Revoke Admin' : 'Make Admin'}
                   </button>
                   <button
                     onClick={() => openDeleteModal(user._id)}
-                    className='px-6 py-1 bg-[#FFBE1E] rounded shadow hover:bg-[#FFDE8C] transform transition-transform duration-150 hover:scale-110'>
+                    className='px-6 py-1 text-white bg-[#D3504A] rounded shadow hover:bg-[#EA726D] transform transition-transform duration-150 hover:scale-110'>
                     Delete
                   </button>
                 </td>
@@ -108,7 +108,7 @@ export default function UserManagement() {
               </button>
               <button
                 onClick={confirmDelete}
-                className='px-4 py-2 bg-[#FFBE1E] rounded shadow hover:bg-[#FFDE8C] transform transition-transform duration-150 hover:scale-110'>
+                className='px-4 py-2 text-white bg-[#D3504A] rounded shadow hover:bg-[#EA726D] transform transition-transform duration-150 hover:scale-110'>
                 Delete
               </button>
             </div>

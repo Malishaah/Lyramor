@@ -190,7 +190,7 @@ export default function Feed() {
   return (
     <>
       <Header />
-      <div className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-100 via-indigo-100 to-[#EFE8FF] dark:from-gray-800 dark:to-gray-900'>
+      <div className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br bg-[#FEF1DC] dark:from-gray-800 dark:to-gray-900'>
         <div className='max-w-4xl mx-auto mb-10'>
           {/* Search & New */}
           <div className='mb-6 flex space-x-3'>
@@ -204,7 +204,7 @@ export default function Feed() {
             <button
               type='button'
               onClick={() => setModalData({ playlist: {} })}
-              className='px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700'>
+              className='px-10 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow transform transition-transform duration-150 hover:scale-110'>
               + New
             </button>
           </div>
@@ -333,7 +333,7 @@ export default function Feed() {
                 </button>
                 <button
                   type='submit'
-                  className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'>
+                  className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transform transition-transform duration-150 hover:scale-110'>
                   {modalData.id ? 'Update' : 'Create'}
                 </button>
               </div>

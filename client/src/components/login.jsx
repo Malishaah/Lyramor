@@ -22,7 +22,7 @@ export default function Login() {
   };
 
   return (
-    <div className='min-h-screen bg-[#9767FF] flex items-center justify-center p-8'>
+    <div className='min-h-screen bg-[#4A2C2C] flex items-center justify-center p-8'>
       <div className='text-white w-full text-center'>
         <div className='text-4xl font-bold mb-6'>
           <img
@@ -50,7 +50,7 @@ export default function Login() {
           />
           <button
             type='submit'
-            className='w-full sm:w-72 md:w-96 lg:w-[600px] xl:w-[700px] p-3 bg-[#ffafcc] hover:bg-[#ffbcd9] text-black font-bold border-2 border-black rounded-md mt-2'>
+            className='w-full sm:w-72 md:w-96 lg:w-[600px] xl:w-[700px] p-3 bg-[#FEFEA4] hover:bg-[#FFDC76] text-black font-bold border-2 border-black rounded-md mt-2'>
             Log in
           </button>
         </form>

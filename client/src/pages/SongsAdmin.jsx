@@ -1,3 +1,4 @@
+// src/components/SongsAdmin.jsx
 import { useState, useEffect } from 'react';
 import { fetchSongs, deleteSong, uploadSong } from '../api/songsClient';
 import { fetchGenres } from '../api/genresClient';
@@ -14,6 +15,7 @@ export default function SongsAdmin() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function loadData() {
@@ -26,6 +28,7 @@ export default function SongsAdmin() {
         setGenres(genresData);
       } catch (err) {
         console.error('Failed to load data:', err);
+        setError('Kunde inte ladda data.');
       } finally {
         setLoading(false);
       }
@@ -42,6 +45,7 @@ export default function SongsAdmin() {
     e.preventDefault();
     if (!file) return;
     setUploading(true);
+    setError(null);
 
     try {
       const formData = new FormData();
@@ -56,56 +60,72 @@ export default function SongsAdmin() {
       setFile(null);
     } catch (err) {
       console.error('Upload failed:', err);
+      setError('Kunde inte ladda upp låten.');
     } finally {
       setUploading(false);
     }
   };
 
   const handleDelete = async (id) => {
+    setError(null);
     try {
       await deleteSong(id);
       setSongs((prev) => prev.filter((s) => s._id !== id));
     } catch (err) {
       console.error('Delete failed:', err);
+      setError('Kunde inte ta bort låten.');
     }
   };
 
   return (
-    <>
+    <div className="bg-[#FEF1DC] min-h-screen">
       <Header />
-      <div className='max-w-3xl mx-auto p-6 bg-[#EFE8FF] dark:bg-gray-900 min-h-screen'>
-        <h2 className='text-xl font-bold mb-4 dark:text-white'>Manage Songs</h2>
+      <div className="max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
 
-        <form onSubmit={handleSubmit} className='mb-6 space-y-4'>
-          <div>
-            <label className='block mb-1'>Title</label>
+        <h2 className="text-2xl font-bold mb-6 text-center">Manage Songs</h2>
+
+        {error && (
+          <div className="w-full bg-red-200 text-red-800 p-4 rounded mb-6 text-center">
+            {error}
+          </div>
+        )}
+
+        <form
+          onSubmit={handleSubmit}
+          className="w-full mb-8 space-y-4 flex flex-col items-center"
+        >
+          <div className="w-full">
+            <label className="block mb-1">Title</label>
             <input
-              name='title'
+              name="title"
               value={form.title}
               onChange={handleChange}
-              className='w-full border p-2 rounded'
+              className="w-full border p-2 rounded"
               required
             />
           </div>
-          <div>
-            <label className='block mb-1'>Artist Name</label>
+
+          <div className="w-full">
+            <label className="block mb-1">Artist Name</label>
             <input
-              name='artistName'
+              name="artistName"
               value={form.artistName}
               onChange={handleChange}
-              className='w-full border p-2 rounded'
+              className="w-full border p-2 rounded"
               required
             />
           </div>
-          <div>
-            <label className='block mb-1'>Genre</label>
+
+          <div className="w-full">
+            <label className="block mb-1">Genre</label>
             <select
-              name='genrename'
+              name="genrename"
               value={form.genrename}
               onChange={handleChange}
-              className='w-full border p-2 rounded'
-              required>
-              <option value=''>Select genre…</option>
+              className="w-full border p-2 rounded"
+              required
+            >
+              <option value="">Select genre…</option>
               {genres.map((g) => (
                 <option key={g._id} value={g.name}>
                   {g.name}
@@ -113,44 +133,47 @@ export default function SongsAdmin() {
               ))}
             </select>
           </div>
-          <div>
-            <label className='block mb-1'>Sound File</label>
+
+          <div className="w-full">
+            <label className="block mb-1">Sound File</label>
             <input
-              type='file'
-              accept='audio/*'
+              type="file"
+              accept="audio/*"
               onChange={(e) => setFile(e.target.files[0])}
-              className='w-full'
+              className="w-full"
               required
             />
           </div>
+
           <button
-            type='submit'
-            className='bg-green-500 text-white px-4 py-2 rounded'
-            disabled={uploading}>
+            type="submit"
+            className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded transform transition-transform duration-150 hover:scale-110"
+            disabled={uploading}
+          >
             {uploading ? 'Uploading…' : 'Upload Song'}
           </button>
         </form>
 
         {loading ? (
-          <p className='dark:text-white'>Loading songs…</p>
+          <p>Loading songs…</p>
         ) : (
-          <ul className='space-y-3'>
+          <ul className="w-full space-y-4">
             {songs.map((s) => (
               <li
                 key={s._id}
-                className='bg-white dark:bg-gray-800 p-3 rounded shadow flex flex-col gap-2'>
-                <span className='dark:text-white'>
-                  🎵 {s.title} — {s.artist?.name || 'Unknown'}
-                </span>
+                className="bg-white p-4 rounded shadow flex flex-col gap-4 items-center"
+              >
+                <span>🎵 {s.title} — {s.artist?.name || 'Unknown'}</span>
                 {s.trackUrl && (
-                  <audio controls className='w-full'>
-                    <source src={s.trackUrl} type='audio/mpeg' />
+                  <audio controls className="w-full">
+                    <source src={s.trackUrl} type="audio/mpeg" />
                     Your browser does not support the audio element.
                   </audio>
                 )}
                 <button
                   onClick={() => handleDelete(s._id)}
-                  className='bg-red-400 text-white px-2 py-1 rounded self-end'>
+                  className="bg-[#D3504A] text-white px-10 py-2 rounded shadow hover:bg-[#EA726D] transform transition-transform duration-150 hover:scale-110"
+                >
                   Delete
                 </button>
               </li>
@@ -158,6 +181,6 @@ export default function SongsAdmin() {
           </ul>
         )}
       </div>
-    </>
+    </div>
   );
 }
