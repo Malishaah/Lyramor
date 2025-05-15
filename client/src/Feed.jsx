@@ -33,13 +33,13 @@ function PlaylistCard({ pl, user, deleteM, setModalData }) {
             <button
               type='button'
               onClick={() => setModalData({ id: pl._id, playlist: pl })}
-              className='text-blue-600 dark:text-blue-400 hover:underline'>
+              className='px-8 py-1 bg-[#FFBE1E] rounded hover:bg-[#FFDE8C] transform transition-transform duration-150 hover:scale-110 mr-4'>
               Edit
             </button>
             <button
               type='button'
               onClick={() => deleteM.mutate(pl._id)}
-              className='text-red-600 dark:text-red-400 hover:underline'>
+              className='px-6 py-2 text-white bg-[#D3504A] rounded shadow hover:bg-[#EA726D] transform transition-transform duration-150 hover:scale-110'>
               Delete
             </button>
           </div>
@@ -238,7 +238,7 @@ export default function Feed() {
                 const payload = modalData.id
                   ? { id: modalData.id, playlist: modalData.playlist }
                   : { ...modalData.playlist, createdBy: user._id };
-                modalData[id]
+                modalData.id
                   ? updateM.mutate(payload)
                   : createM.mutate(payload);
                 setModalData(null);
