@@ -41,8 +41,8 @@ export default function Signup() {
       <div className='text-white w-full text-center'>
         <img
           src={logo}
-          alt='Mimsy Logo'
-          className='h-36 sm:h-24 md:h-32 lg:h-40 xl:h-44 w-auto mx-auto mb-6'
+          alt='Lyramor Logo'
+          className='h-24 sm:h-18 md:h-22 lg:h-22 xl:h-24 w-auto mx-auto mb-10'
         />
         <form onSubmit={handleSignup} className='flex flex-col items-center'>
           <input
