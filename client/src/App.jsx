@@ -1,12 +1,12 @@
 // src/App.jsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './components/login.jsx';
-import Signup from './components/signup.jsx';
-import Feed from './Feed.jsx';
-import UserManagement from './UserManagement.jsx';
-import SongsAdmin from './pages/SongsAdmin.jsx';
-import GenresAdmin from './pages/GenresAdmin.jsx';
+import Login from './views/components/login.jsx';
+import Signup from './views/components/signup.jsx';
+import Feed from './views/pages/Feed.jsx';
+import UserManagement from './views/pages/UserManagement.jsx';
+import SongsAdmin from './views/pages/SongsAdmin.jsx';
+import GenresAdmin from './views/pages/GenresAdmin.jsx';
 
 const queryClient = new QueryClient();
 

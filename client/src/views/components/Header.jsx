@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getSession } from '../api/userClient';
-import logo from '../assets/lyramor.svg';
+import { getSession } from '../../controllers/usercontroller';
+import logo from '../../assets/lyramor.svg';
 
 export default function Header() {
   const navigate = useNavigate();

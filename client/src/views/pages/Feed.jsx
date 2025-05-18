@@ -7,11 +7,11 @@ import {
   deletePlaylist,
   fetchPlaylists,
   updatePlaylist,
-} from './api/playlistsClient';
-import { fetchGenres } from './api/genresClient';
-import { fetchSongs } from './api/songsClient';
-import { getSession } from './api/userClient';
-import Header from './components/Header';
+} from '../../controllers/playlistscontroller';
+import { fetchGenres } from '../../controllers/genrescontroller';
+import { fetchSongs } from '../../controllers/songscontroller';
+import { getSession } from '../../controllers/usercontroller';
+import Header from '../components/Header';
 
 function PlaylistCard({ pl, user, deleteM, setModalData }) {
   const genres = Object.keys(pl.grouped);

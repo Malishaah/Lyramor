@@ -1,5 +1,5 @@
 import React from 'react';
-import avatar from '../assets/react.svg';
+import avatar from '../../assets/lyramor.svg';
 
 /**
  * @typedef {Object} Playlist
@@ -30,7 +30,8 @@ export function PlaylistCard({ playlist, canEdit, onEdit, onDelete }) {
         />
         <div className='flex-1'>
           <p className='font-medium dark:text-white'>
-            {playlist.createdBy.username} /Users/maliroshanshah/Repos/Lyramor/client
+            {playlist.createdBy.username}{' '}
+            /Users/maliroshanshah/Repos/Lyramor/client
           </p>
           <p className='text-xs text-gray-500 dark:text-gray-400'>
             {dateString}

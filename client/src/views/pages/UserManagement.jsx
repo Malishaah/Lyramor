@@ -1,7 +1,11 @@
 // src/components/UserManagement.jsx
 import { useEffect, useState } from 'react';
-import Header from './components/Header';
-import { fetchUsers, updateUserRole, deleteUser } from './api/userClient';
+import Header from '../components/Header';
+import {
+  fetchUsers,
+  updateUserRole,
+  deleteUser,
+} from '../../controllers/usercontroller';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
